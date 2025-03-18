@@ -1,12 +1,14 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import stylistic from '@stylistic/eslint-plugin';
+import eslintPluginRecommended from 'eslint-plugin-prettier/recommended';
 
 export default tseslint.config({
   files: ['**/*.ts'],
   extends: [
     eslint.configs.recommended,
     ...tseslint.configs.recommendedTypeChecked,
+    eslintPluginRecommended,
   ],
   languageOptions: {
     parserOptions: {
@@ -17,6 +19,7 @@ export default tseslint.config({
   plugins: {
     '@stylistic': stylistic,
   },
+  ignores: ['build/*'],
   rules: {
     '@stylistic/semi': 'error',
     '@typescript-eslint/no-unsafe-assignment': 'error',
