@@ -8,11 +8,23 @@
     "dev": "ts-node-dev src/index.ts",
     "lint": "npx eslint . --fix",
     "prepare": "husky",
+<<<<<<< HEAD
     "lint-staged": {
       "**/*.{ts,tsx,js,jsx}": "eslint --fix"
     },
     "test": "jest --runInBand",
     "test:watch": "jest --watch"
+||||||| parent of e028d61 (feat: added register functionality)
+    "lint-staged": {
+      "**/*.{ts,tsx,js,jsx}": "eslint --fix"
+    }
+=======
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx}": "eslint --fix"
+>>>>>>> e028d61 (feat: added register functionality)
   },
   "keywords": [],
   "author": "",
