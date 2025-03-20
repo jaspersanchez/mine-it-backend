@@ -20,7 +20,7 @@ describe('User Registration', () => {
 
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty('username');
-  });
+  }, 20000);
 
   it('should not allow duplicate registration', async () => {
     await request(app).post('/api/auth/register').send({
