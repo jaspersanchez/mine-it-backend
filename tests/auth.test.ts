@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../src/app'; // Adjust the import path based on your project
 import prisma from '../src/prismaClient';
 
-beforeAll(async (): Promise<void> => {
+beforeAll(async () => {
   await prisma.user.deleteMany(); // Clear users before running tests
 });
 
@@ -11,7 +11,7 @@ afterAll(async () => {
 });
 
 describe('User Registration', () => {
-  it('should register a user successfully', async (): Promise<void> => {
+  it('should register a user successfully', async () => {
     const res = await request(app).post('/api/auth/register').send({
       username: 'testuser',
       email: 'test@example.com',
