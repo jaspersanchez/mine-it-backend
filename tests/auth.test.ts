@@ -2,8 +2,6 @@ import request from 'supertest';
 import app from '../src/app'; // Adjust the import path based on your project
 import prisma from '../src/prismaClient';
 
-jest.useRealTimers();
-
 beforeAll(async () => {
   await prisma.user.deleteMany(); // Clear users before running tests
 });
