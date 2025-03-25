@@ -15,6 +15,8 @@ export const errorMiddleware = (
   } else if (error instanceof Error) {
     if (error.message === 'USER_ALREADY_EXISTS') {
       res.status(409).json({ message: 'User already exists' });
+    } else if (error.message === 'INVALID_CREDENTIALS') {
+      res.status(401).json({ message: 'Invalid credentials' });
     }
   } else {
     next(error);

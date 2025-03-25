@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
-import { AuthUser, NewUser } from '../types/userTypes';
-import { createUser } from '../services/userService';
-import jwt from 'jsonwebtoken';
+import { AuthUser, NewUser, UserCredentials } from '../types/userTypes';
+import {
+  checkUserExists,
+  createUser,
+  generateToken,
+  isPasswordMatch,
+} from '../services/userService';
 
 export const registerUser = async (
   req: Request<unknown, unknown, NewUser>,
@@ -9,16 +13,37 @@ export const registerUser = async (
   next: NextFunction,
 ) => {
   try {
-    const { id, username, email } = await createUser(req.body);
+    const { id, username, email, createdAt } = await createUser(req.body);
+    const user = { id, username, email, createdAt };
 
     // Generate JWT token
-    const token = jwt.sign({ userId: id }, process.env.JWT_SECRET!, {
-      expiresIn: '7d',
-    });
+    const token = generateToken(user.id);
 
     res.status(201).json({
-      username,
-      email,
+      user,
+      token,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const loginUser = async (
+  req: Request<unknown, unknown, UserCredentials>,
+  res: Response<AuthUser>,
+  next: NextFunction,
+) => {
+  try {
+    const { email, password } = req.body;
+
+    const { passwordHash, ...user } = await checkUserExists(email);
+
+    await isPasswordMatch(password, passwordHash);
+
+    const token = generateToken(user.id);
+
+    res.status(200).json({
+      user,
       token,
     });
   } catch (error) {

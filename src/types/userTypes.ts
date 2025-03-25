@@ -1,7 +1,13 @@
 import { z } from 'zod';
-import { NewUserSchema } from '../schemas/userSchema';
+import { NewUserSchema, UserCredentialsSchema } from '../schemas/userSchema';
 import { User } from '@prisma/client';
+import { Omit } from '@prisma/client/runtime/library';
 
 export type NewUser = z.infer<typeof NewUserSchema>;
 
-export type AuthUser = Pick<User, 'username' | 'email'> & { token: string };
+export type UserCredentials = z.infer<typeof UserCredentialsSchema>;
+
+export type AuthUser = {
+  user: Omit<User, 'passwordHash'>;
+  token: string;
+};
