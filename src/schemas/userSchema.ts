@@ -5,3 +5,5 @@ export const NewUserSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
 });
+
+export const UserCredentialsSchema = NewUserSchema.omit({ username: true });
