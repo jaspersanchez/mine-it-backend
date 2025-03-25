@@ -62,7 +62,7 @@ describe('Authentication', () => {
     expect(res.statusCode).toBe(401);
     expect(res.body).toEqual(
       expect.objectContaining({
-        message: 'User already exists',
+        message: 'Invalid credentials',
       }),
     );
   });
@@ -76,7 +76,7 @@ describe('Authentication', () => {
     expect(res.statusCode).toBe(401);
     expect(res.body).toEqual(
       expect.objectContaining({
-        message: 'User already exists',
+        message: 'Invalid credentials',
       }),
     );
   });
